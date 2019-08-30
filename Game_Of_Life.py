@@ -37,4 +37,4 @@ def render_board(board_state):
     print('----------------')
 
 
-render_board(random_state(6, 3))
+render_board(random_state(5, 5))
