@@ -37,4 +37,46 @@ def render_board(board_state):
     print('----------------')
 
 
+def next_board_state(board_state):
+    """This function take a board state an calculate the next state of the board based on the following four rules:
+    1 - Any live cell with 0 or 1 live neighbors becomes dead
+    2 - Any live cell with 2 or 3 live neighbors stays alive
+    3 - Any live cell with more than 3 live neighbors becomes dead
+    4 - Any dead cell with exactly 3 live neighbors becomes alive"""
+    board_height = len(board_state)
+    board_width = len(board_state[0])
+
+    def check_neighbor_state:
+        for h in range(board_height):
+            for w in range(board_width):
+                if board_state[h][w] == 0:
+                    if board_state[h][w + 1] == 1:
+                        if board_state[h + 1][w] == 1:
+                            if board_state[h + 1][w + 1] == 1:
+                                board_state[h][w] = 1
+                if board_state[h][w] == 1:
+                    if board_state[h][w + 1] == 1:
+                        if board_state[h + 1][w] == 1:
+                            board_state[h][w] = 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 render_board(random_state(5, 5))
