@@ -43,40 +43,27 @@ def next_board_state(board_state):
     2 - Any live cell with 2 or 3 live neighbors stays alive
     3 - Any live cell with more than 3 live neighbors becomes dead
     4 - Any dead cell with exactly 3 live neighbors becomes alive"""
-    board_height = len(board_state)
-    board_width = len(board_state[0])
+    new_state = board_state
+    board_height = len(new_state)
+    board_width = len(new_state[0])
 
-    def check_neighbor_state:
-        for h in range(board_height):
-            for w in range(board_width):
-                if board_state[h][w] == 0:
-                    if board_state[h][w + 1] == 1:
-                        if board_state[h + 1][w] == 1:
-                            if board_state[h + 1][w + 1] == 1:
-                                board_state[h][w] = 1
-                if board_state[h][w] == 1:
-                    if board_state[h][w + 1] == 1:
-                        if board_state[h + 1][w] == 1:
-                            board_state[h][w] = 1
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    for h in range(0, board_height):
+        for w in range(0, board_width):
+            neighbor_sum = 0
+            current_cell_value = board_state[h][w]
+            # In every board there are only 4 corner cell.
+            # If current cell is a corner cell then it only has 3 neighbors.
+            if h and w == 0 or \
+                    h == 0 and w == board_width - 1 or \
+                    h == board_height - 1 and w == 0 or \
+                    h == board_height - 1 and w == board_width - 1:
+                if current_cell_value == 0:
+                    for x in range(0, 2):
+                        for y in range(1, -1, -1):
+                            if board_state[h + x][w + y] == 1:
+                                neighbor_sum = neighbor_sum + board_state[h + x][w + y]
+                    if neighbor_sum == 3:
+                        new_state[h][w] = 1
 
 
 render_board(random_state(5, 5))
