@@ -51,19 +51,39 @@ def next_board_state(board_state):
         for w in range(0, board_width):
             neighbor_sum = 0
             current_cell_value = board_state[h][w]
-            # In every board there are only 4 corner cell.
-            # If current cell is a corner cell then it only has 3 neighbors.
-            if h and w == 0 or \
-                    h == 0 and w == board_width - 1 or \
-                    h == board_height - 1 and w == 0 or \
-                    h == board_height - 1 and w == board_width - 1:
-                if current_cell_value == 0:
-                    for x in range(0, 2):
-                        for y in range(1, -1, -1):
-                            if board_state[h + x][w + y] == 1:
-                                neighbor_sum = neighbor_sum + board_state[h + x][w + y]
-                    if neighbor_sum == 3:
-                        new_state[h][w] = 1
+            for x in range(-1, 2):
+                for y in range(-1, 2):
+                    # If x and y equals 0 it means it's checking the value of the current cell
+                    # not that of a neighbor.
+                    if x == 0 and y == 0:
+                        pass
+                    else:
+                        try:
+                            neighbor_sum = neighbor_sum + board_state[h + x][w + y]
+                        except IndexError:
+                            pass
+            # Cell state only matters for rule 2, so if cell is alive:
+            if current_cell_value == 1:
+                # If cell has 2 or 3 live neighbors, it stays alive. Rule 2.
+                if neighbor_sum == 2 or neighbor_sum == 3:
+                    new_state[h][w] = 1
+            # If cell have 0 or just 1 live neighbors, it dies. Rule 1.
+            if neighbor_sum == 0 or neighbor_sum == 1:
+                new_state[h][w] = 0
+            # If cell has more than 3 live neighbors, it dies. Rule 3.
+            elif neighbor_sum > 3:
+                new_state[h][w] = 0
+            # If cell has 3 live neighbors it becomes alive. Rule 4.
+            elif neighbor_sum == 3:
+                new_state[h][w] = 1
+            # If cell is dead and has only 2 alive neighbors, it stays dead. Rule 2.
+            else:
+                new_state[h][w] = 0
+
+    return new_state
 
 
-render_board(random_state(5, 5))
+board = random_state(5, 5)
+render_board(board)
+new_board = next_board_state(board)
+render_board(new_board)
