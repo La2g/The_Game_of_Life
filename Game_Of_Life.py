@@ -60,9 +60,11 @@ def next_board_state(board_state):
                     else:
                         try:
                             neighbor_sum = neighbor_sum + board_state[h + x][w + y]
+                        # This is wrong, due to list acceptance of negative indexes
+                        # not all wrong index cause an Index error.
                         except IndexError:
                             pass
-            # Cell state only matters for rule 2, so if cell is alive:
+            # A cell state only matters for rule 2, so if cell is alive:
             if current_cell_value == 1:
                 # If cell has 2 or 3 live neighbors, it stays alive. Rule 2.
                 if neighbor_sum == 2 or neighbor_sum == 3:
@@ -83,7 +85,7 @@ def next_board_state(board_state):
     return new_state
 
 
-board = random_state(5, 5)
+board = random_state(3, 3)
 render_board(board)
 new_board = next_board_state(board)
 render_board(new_board)
