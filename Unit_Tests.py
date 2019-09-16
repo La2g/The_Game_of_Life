@@ -48,15 +48,15 @@ if __name__ == "__main__":
     # Test 3: any live cell with more than 3 live neighbors dies.
     init_state3 = [
         [1, 0, 1],
-        [0, 1, 1],
-        [1, 0, 0]
+        [1, 1, 1],
+        [0, 0, 0]
     ]
     expected_next_state3 = [
         [1, 0, 1],
-        [0, 0, 1],
-        [0, 0, 0]
+        [1, 0, 1],
+        [0, 1, 0]
     ]
-    actual_next_state3 = next_board_state(init_state2)
+    actual_next_state3 = next_board_state(init_state3)
 
     if expected_next_state3 == actual_next_state3:
         print('Passed 3')

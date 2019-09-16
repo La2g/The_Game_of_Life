@@ -57,11 +57,13 @@ def next_board_state(board_state):
                     # not that of a neighbor.
                     if x == 0 and y == 0:
                         pass
+                    # If a list index is negative it check the cell at the other side of the board
+                    # which doesn't count as a neighbor cell.
+                    elif (h + x) < 0 or (w + y) < 0:
+                        pass
                     else:
                         try:
                             neighbor_sum = neighbor_sum + board_state[h + x][w + y]
-                        # This is wrong, due to list acceptance of negative indexes
-                        # not all wrong index cause an Index error.
                         except IndexError:
                             pass
             # A cell state only matters for rule 2, so if cell is alive:
