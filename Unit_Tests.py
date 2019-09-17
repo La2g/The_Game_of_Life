@@ -23,7 +23,7 @@ if __name__ == "__main__":
         print('Actual:')
         print(actual_next_state1)
 
-    # Test 2: dead cells with exactly 3 neighbors should come alive.
+    # Test 2: dead cells with exactly 3 neighbors should come alive. Rule 4.
     init_state2 = [
         [0, 0, 1],
         [0, 1, 1],
@@ -45,7 +45,7 @@ if __name__ == "__main__":
         print('Actual:')
         print(actual_next_state2)
 
-    # Test 3: any live cell with more than 3 live neighbors dies.
+    # Test 3: any live cell with more than 3 live neighbors dies. Rule 3.
     init_state3 = [
         [1, 0, 1],
         [1, 1, 1],
@@ -66,3 +66,25 @@ if __name__ == "__main__":
         print(expected_next_state3)
         print('Actual:')
         print(actual_next_state3)
+
+    # Test 4: any live cell with 2 or 3 live neighbors stays alive.
+    init_state4 = [
+        [1, 0, 0],
+        [1, 1, 0],
+        [0, 0, 1]
+    ]
+    expected_next_state4 = [
+        [1, 1, 0],
+        [1, 1, 0],
+        [0, 1, 0]
+    ]
+    actual_next_state4 = next_board_state(init_state4)
+
+    if expected_next_state4 == actual_next_state4:
+        print('Passed 4')
+    else:
+        print('Failed 4!')
+        print('Expected:')
+        print(expected_next_state4)
+        print('Actual:')
+        print(actual_next_state4)

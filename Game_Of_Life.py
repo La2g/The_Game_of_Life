@@ -1,4 +1,5 @@
 import random
+from copy import deepcopy
 from pprint import pprint
 
 
@@ -43,14 +44,15 @@ def next_board_state(board_state):
     2 - Any live cell with 2 or 3 live neighbors stays alive
     3 - Any live cell with more than 3 live neighbors becomes dead
     4 - Any dead cell with exactly 3 live neighbors becomes alive"""
-    new_state = board_state
-    board_height = len(new_state)
-    board_width = len(new_state[0])
+    new_state = deepcopy(board_state)  # deepcopy is necessary here to create a whole new instance of the list.
+    board_height = len(board_state)
+    board_width = len(board_state[0])
 
     for h in range(0, board_height):
         for w in range(0, board_width):
             neighbor_sum = 0
             current_cell_value = board_state[h][w]
+            # This for loops checks all neighbors cells.
             for x in range(-1, 2):
                 for y in range(-1, 2):
                     # If x and y equals 0 it means it's checking the value of the current cell
@@ -66,13 +68,12 @@ def next_board_state(board_state):
                             neighbor_sum = neighbor_sum + board_state[h + x][w + y]
                         except IndexError:
                             pass
+            # If cell has 2 or 3 live neighbors, it stays alive. Rule 2.
             # A cell state only matters for rule 2, so if cell is alive:
-            if current_cell_value == 1:
-                # If cell has 2 or 3 live neighbors, it stays alive. Rule 2.
-                if neighbor_sum == 2 or neighbor_sum == 3:
-                    new_state[h][w] = 1
+            if current_cell_value == 1 and (neighbor_sum == 2 or neighbor_sum == 3):
+                new_state[h][w] = 1
             # If cell have 0 or just 1 live neighbors, it dies. Rule 1.
-            if neighbor_sum == 0 or neighbor_sum == 1:
+            elif neighbor_sum == 0 or neighbor_sum == 1:
                 new_state[h][w] = 0
             # If cell has more than 3 live neighbors, it dies. Rule 3.
             elif neighbor_sum > 3:
@@ -87,7 +88,9 @@ def next_board_state(board_state):
     return new_state
 
 
+'''
 board = random_state(3, 3)
 render_board(board)
 new_board = next_board_state(board)
 render_board(new_board)
+'''
