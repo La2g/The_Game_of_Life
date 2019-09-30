@@ -1,9 +1,9 @@
-import random
+import sys, random
 from copy import deepcopy
-from pprint import pprint
+sys.setrecursionlimit(100)
 
 
-def random_state(board_width, board_height):
+def random_board_state(board_width, board_height):
     """This function creates a board of the size specified by board_with and board_height, in this board
     all cells state are randomized, meaning all values are 0 or 1 (dead or alive).
     """
@@ -38,7 +38,7 @@ def render_board(board_state):
     print('----------------')
 
 
-def next_board_state(board_state):
+def next_board_state(board_state):  # This a recursive function, there is no exit call
     """This function take a board state an calculate the next state of the board based on the following four rules:
     1 - Any live cell with 0 or 1 live neighbors becomes dead
     2 - Any live cell with 2 or 3 live neighbors stays alive
@@ -84,13 +84,14 @@ def next_board_state(board_state):
             # If cell is dead and has only 2 alive neighbors, it stays dead. Rule 2.
             else:
                 new_state[h][w] = 0
+    render_board(new_state)
+    return next_board_state(new_state)
 
-    return new_state
 
+# To Do:
+# Create an infinite loop of the game
 
-'''
-board = random_state(3, 3)
+board = random_board_state(10, 10)
 render_board(board)
-new_board = next_board_state(board)
-render_board(new_board)
-'''
+while True:
+    next_board_state(board)
