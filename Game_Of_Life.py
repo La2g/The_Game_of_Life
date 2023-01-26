@@ -39,7 +39,7 @@ def render_board(board_state):
 
 
 def next_board_state(board_state):  # This a recursive function, there is no exit call
-    """This function take a board state an calculate the next state of the board based on the following four rules:
+    """This function take a board state and calculate the next state of the board based on the following four rules:
     1 - Any live cell with 0 or 1 live neighbors becomes dead
     2 - Any live cell with 2 or 3 live neighbors stays alive
     3 - Any live cell with more than 3 live neighbors becomes dead

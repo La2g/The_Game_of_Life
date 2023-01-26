@@ -1,3 +1,5 @@
 **This is my take on the Game of Life.**
 
-This is a work in progress to develop and test my programming skills.
+More information of the game can be found here:
+
+    https://beltoforion.de/en/game_of_life/index.php#idStart
